@@ -1,0 +1,151 @@
+body {
+    background-color: rgb(35,35,35);
+    color: white;
+    font-family: "Century Gothic", CenturyGothic, Geneva, AppleGothic, sans-serif;
+}
+
+h1 {
+    font-weight: normal;
+}
+
+div.container {
+    width: 25%;
+    height: 50%;
+    display: inline-block;
+    float: left;
+    overflow: hidden;
+}
+
+div.cont {
+    margin-left: 50px;
+    position: relative;
+    width: 70%;
+    display: inline-block;
+}
+/*For the Search bar*/
+#data {
+    border-color: white;
+    border-radius: 10px;
+    border-width: 0px;
+    background-color: white;
+    width: 700px;
+    min-height: 60px;
+    height: auto;
+    font-size: 30px;
+    color: black;
+    outline: 0;
+    padding-left: 3px;
+}
+
+input:focus {
+    box-shadow: 1px 1px 1px 2px white;
+}
+
+
+#box {
+    position: relative;
+    width: 400px;
+}
+/*output*/
+#output {
+    width: 300px;
+    height: 300px;
+    background-color: rgb(18,18,18);
+    border-radius: 5px;
+    padding-left: 10px;
+    font-size: 20px;
+    position: relative;
+    margin-top: 100px;
+    margin-left: 395px;
+}
+
+#output1 {
+    background-color: rgb(18,18,18);
+    position: relative;
+    margin-top: 100px;
+}
+
+
+#rendered_input {
+    width: 300px;
+    height: 300px;
+    background-color: rgb(18,18,18);
+    border-radius: 5px;
+    padding-left: 10px;
+    font-size: 20px;
+    position: relative;
+    margin-top: 100px;
+    float: left;
+}
+
+header, footer {
+    padding: 1em;
+    color: white;
+    background-color: rgb(35,35,35);
+    clear: left;
+    text-align: center;
+}
+
+article {
+    margin-left: 400px;
+    padding: 1em;
+    overflow: hidden;
+    color: white;
+}
+/*Menu*/
+nav {
+    float: left;
+    max-width: 600px;
+    margin: 0;
+    padding: 1em;
+    height: 1000px;
+    max-height: 1000px;
+    width: 600px;
+}
+
+    nav a {
+        text-decoration: none;
+        font-size: 16px;
+    }
+
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+li {
+    padding-left: 16px;
+    padding-top: 5px;
+}
+
+    li a {
+        color: blue;
+    }
+
+.menuNav {
+    display: none;
+}
+
+i {
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    display: inline-block;
+    padding: 3px;
+}
+
+.right {
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+}
+
+.down {
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+}
+
+
+a[id^="menu"] {
+    padding-top: : 30px;
+}

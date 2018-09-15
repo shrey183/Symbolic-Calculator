@@ -1,0 +1,214 @@
+﻿<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="Style_2.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/numeric/1.2.6/numeric.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/4.1.2/math.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript"
+            src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+        tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
+        });
+    </script>
+    <title></title>
+</head>
+<body>
+    <div align="center">
+        <h1>
+            <a href="MenuPage.html" align="center">
+                <img src="Logo.png">
+            </a>
+        </h1>
+        <br />
+    </div>
+
+    <div class="container">
+
+        <!-- Menu -->
+        <nav>
+            <a id="menu1"><i class="arrow right"></i>&nbsp;  Linear Algebra </a>
+            <ul class="menuNav">
+                <li>
+                    <a href="LinearEquations.html">Solve a System of Equations</a><br>
+                </li>
+                <li>
+                    <a href="Eigenvalues.html">Find Eigenvalues and Eigenvectors</a><br>
+                </li>
+            </ul>
+            <br /><br />
+            <a id="menu2"><i class="arrow right"></i> &nbsp; Single Variable Calculus</a>
+            <ul class="menuNav">
+                <li>
+                    <a id="diff" onclick="create_alert()">Differentiate function f(x)</a>
+                    <script>
+                        function create_alert() {
+                            alert("Enter input in the text box in the following form: d/dx(f(x)) where f(x) is a function of x  on the homepage.");
+                        }
+                    </script>
+                </li>
+                <li>
+                    <a href="PlotPage.html">Plot y = f(x)</a>
+                </li>
+            </ul>
+            <br /><br />
+
+        </nav>
+    </div>
+    <div id="cont">
+        <h1> Here we will find the eigenvalues of a matrix of a given size $n.$ </h1>
+        <br>
+        <div id="input_1">
+            <p>
+                Enter the size of the matrix: <input id="size" value="2" type="text" size="3" />
+                <button id="button" onclick="make_matrix()" display="none"> Go! </button>
+            </p>
+        </div>
+        <br><br>
+        <div id="parent-holder" align="center">
+            <div id="matrix_holder1">
+                <!-- This is where the Matrix  will sit. -->
+            </div>
+            <!-- This where a div will be created with the Solve button! -->
+        </div>
+    </div>
+</body>
+</html>
+
+<script>
+
+    $("#matrix_holder1").hide();
+    $(document).ready(function () {
+        // Menu
+        $("a[id^='menu']").click(function () {
+
+            var ul = $(this).next("ul");
+
+            if (ul.css('display') == 'none') {
+                ul.fadeIn('3000').show();
+                $(this).find("i").removeClass("right").addClass("down");
+            } else {
+                ul.hide();
+                $(this).find("i").removeClass("down").addClass("right");
+            }
+        });
+    });
+    var container = document.getElementById("cont");
+    var father = document.getElementById("matrix_holder1");
+
+
+    // Triger the event click after the user presses enter after filling the number of rows.
+    document.getElementById("size").addEventListener("keyup", function (event) {
+        event.preventDefault();
+        if (event.keyCode == 13) {
+            document.getElementById("button").click();
+        }
+    })
+
+    function make_matrix() {
+        // These methods clear of the previous calculations.
+        $("#matrix_holder1").empty();
+        $("#solve_button").remove();
+        $("#answer").remove();
+
+        // Show the brackets around the matrix
+        $("#matrix_holder1").show();
+
+        // Get the number of rows.
+        var r = parseInt(document.querySelector("#size").value);
+        for (var i = 0; i < r; i++) {
+
+            for (var j = 0; j < r; j++) {
+                // We create an input type node to get the a[i][j] entry of the matrix
+                var node = document.createElement("input");
+                node.setAttribute("type", "text");
+                node.setAttribute("size", "2");
+                node.setAttribute("value", "0");
+                node.setAttribute("id", `${i}${j}`);
+
+                // Add a little space after the input box
+                var text = document.createTextNode("  ");
+                var para = document.createElement("a");
+                para.appendChild(node);
+                para.appendChild(text);
+                father.appendChild(para);
+            }
+            // Add newline after each row.
+            father.appendChild(document.createElement("br"));
+            father.appendChild(document.createElement("br"));
+        }
+
+        //Need to typeset the webpage again if needed.
+        MathJax.Hub.Typeset();
+        //Create the button that will allow the user to compute eigenvalues
+        var new_div = document.createElement("div");
+        new_div.setAttribute("id", "solve_button");
+        new_div.setAttribute("align", "center");
+
+        var new_button = document.createElement("button");
+        new_button.setAttribute("id", "solve");
+        new_button.setAttribute("onclick", "find_eig()");
+        new_button.textContent = "Find Eigenvalues/Eigenvectors!";
+        new_div.appendChild(new_button);
+        //Append this to the div with id = "container"
+        container.appendChild(new_div);
+
+    }
+
+    function get_entries() {
+        // If we have a system of the form Ax=b then this method will return the matrix A (coefficient matrix) and the vector b (answer matrix).
+
+
+        var r = parseInt(document.querySelector("#size").value);
+        if (document.querySelector("#solve_button") != null) {
+            // Then go ahead and read each input box with id "ij"
+            var coeff = [];
+            var id = "";
+            var nodeValue = "";
+            // Recall that each input tag had an id of the form ij where i refered to its row number and j refered to its column number.
+            // So we just iterate over all the possible values extract information.
+            for (var i = 0; i < r; i++) {
+                coeff[i] = [];
+                for (var j = 0; j < r; j++) {
+                    id = String(i) + String(j);
+                    nodeValue = document.getElementById(`${id}`).value;
+                    coeff[i][j] = (parseInt(nodeValue));
+                }
+            }
+            return coeff;
+        }
+    }
+
+
+
+
+    function find_eig() {
+        // This method will print the result to the user.
+
+        // Remove the previous answer.
+
+        $("#answer").remove();
+
+        var matrix = get_entries();
+        try {
+            // sol is an array of the eigenvalues
+            var sol = numeric.eig(matrix).lambda.x;
+            var ans_text = "The answer is " + "(" + sol.join(",") + ").";
+            var div_ans = document.createElement("div");
+            div_ans.setAttribute("id", "answer");
+            var text = document.createTextNode(ans_text + " Note that there might some imprecisions due to rounding off errors.");
+            div_ans.appendChild(text);
+            container.appendChild(div_ans);
+        }
+        catch (err) {
+            var div_ans = document.createElement("div");
+            div_ans.setAttribute("id", "answer");
+            var text = document.createTextNode("Sorry, could not find Eigenvalue for the given system.");
+            div_ans.appendChild(text);
+            container.appendChild(div_ans);
+        }
+    }
+</script>

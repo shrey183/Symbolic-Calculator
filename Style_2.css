@@ -1,0 +1,173 @@
+body {
+    background-color: rgb(35,35,35);
+    color: white;
+    font-family: "Century Gothic", CenturyGothic, Geneva, AppleGothic, sans-serif;
+}
+
+h1 {
+    font-weight: normal;
+}
+
+div.container {
+    width: 25%;
+    height: 50%;
+    display: inline-block;
+    float: left;
+    overflow: hidden;
+}
+
+#cont {
+    margin-left: 50px;
+    position: relative;
+    width: 70%;
+    display: inline-block;
+}
+/*For the Search bar*/
+#data {
+    width: 700px;
+    position: absolute;
+    overflow: hidden;
+}
+
+input[type=text] {
+    border-color: white;
+    border-radius: 10px;
+    border-width: 0px;
+    caret-color: white;
+    background-color: rgb(18,18,18);
+    color: white;
+    font-weight: normal;
+    outline: 0;
+    font-size: 25px;
+    line-height: 2em;
+    padding-left: 3px;
+    margin: 2px;
+}
+
+input:focus {
+    box-shadow: 1px 1px 1px 2px white;
+}
+
+
+#box {
+    position: relative;
+    width: 400px;
+}
+/*output*/
+#output {
+    width: 300px;
+    height: 300px;
+    background-color: rgb(18,18,18);
+    border-radius: 5px;
+    padding-left: 10px;
+    font-size: 20px;
+    position: relative;
+    margin-top: 100px;
+    margin-left: 395px;
+}
+
+#rendered_input {
+    width: 300px;
+    height: 300px;
+    background-color: rgb(18,18,18);
+    border-radius: 5px;
+    padding-left: 10px;
+    font-size: 20px;
+    position: relative;
+    margin-top: 100px;
+    float: left;
+}
+
+header, footer {
+    padding: 1em;
+    color: white;
+    background-color: rgb(35,35,35);
+    clear: left;
+    text-align: center;
+}
+
+article {
+    margin-left: 400px;
+    padding: 1em;
+    overflow: hidden;
+    color: white;
+}
+/*Menu*/
+nav {
+    float: left;
+    max-width: 600px;
+    margin: 0;
+    padding: 1em;
+    height: 1000px;
+    max-height: 1000px;
+    width: 600px;
+}
+
+    nav a {
+        text-decoration: none;
+        font-size: 16px;
+    }
+
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+li {
+    padding-left: 16px;
+    padding-top: 5px;
+}
+
+    li a {
+        color: blue;
+    }
+
+.menuNav {
+    display: none;
+}
+
+i {
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    display: inline-block;
+    padding: 3px;
+}
+
+.right {
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+}
+
+.down {
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+}
+
+#data:hover {
+    background-color: red;
+}
+
+a[id^="menu"] {
+    padding-top: : 30px;
+}
+
+/*For the brackets around the matrix*/
+#matrix_holder1 {
+    border: 2px solid white;
+    display: inline-block;
+    border-top-color: transparent;
+    border-bottom-color: transparent;
+    margin: 0em;
+    border-radius: 50px;
+    padding-top: 20px;
+    padding-bottom: 5px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+#solve {
+    position: relative;
+    text-align: center;
+}
