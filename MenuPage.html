@@ -65,8 +65,12 @@
             <input type="text" name="input" id="data" placeholder="Enter an expression" class="normal_box">
         </div>
         <!-- output -->
-        <div id="rendered_input"></div>
-        <div id="output"></div>
+        <div class="render-input-wrapper">
+            <div id="rendered_input"></div>
+        </div>
+        <div class="output-wrapper">
+            <div id="output"></div>
+        </div>
     </div>
 
 </body>
@@ -289,4 +293,19 @@
         });
 
     });
+</script>
+
+
+<!-- Simple script for removing the scrollbar using js -->
+<script>
+    var parent = document.querySelector('.render-input-wrapper');
+    var child = document.getElementById('rendered_input');
+    child.style.bottom =  -1*child.offsetHeight +"px";//-child.clientHeight + child.offsetHeight + "px";
+</script>
+
+<script>
+    var parent = document.querySelector('.output-wrapper');
+    var child = document.getElementById('output');
+    console.log(child.offsetHeight);
+    child.style.bottom =  -1*child.offsetHeight +"px";//-child.clientHeight + child.offsetHeight + "px";
 </script>
