@@ -171,3 +171,37 @@ a[id^="menu"] {
     position: relative;
     text-align: center;
 }
+
+
+/*buttons*/
+
+#button,
+#solve {
+    background-color: #128572;
+    color: #fff;
+    border: none;
+    border-radius: 2px;
+    font-weight: bold;
+}
+
+#button:hover,
+#solve:hover {
+    color: #000;
+}
+
+
+#button {
+    width: 40px;
+    height: 30px;
+    
+}
+
+#solve {
+    width: 180px;
+    height: 30px;  
+    padding: 2px 0;  
+}
+
+
+
+
