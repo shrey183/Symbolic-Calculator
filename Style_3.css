@@ -22,6 +22,7 @@ div.cont {
     width: 70%;
     display: inline-block;
 }
+
 /*For the Search bar*/
 #data {
     border-color: white;
@@ -46,6 +47,7 @@ input:focus {
     position: relative;
     width: 400px;
 }
+
 /*output*/
 #output {
     width: 300px;
@@ -64,7 +66,6 @@ input:focus {
     position: relative;
     margin-top: 100px;
 }
-
 
 #rendered_input {
     width: 300px;
@@ -92,6 +93,7 @@ article {
     overflow: hidden;
     color: white;
 }
+
 /*Menu*/
 nav {
     float: left;
@@ -103,10 +105,10 @@ nav {
     width: 600px;
 }
 
-    nav a {
-        text-decoration: none;
-        font-size: 16px;
-    }
+nav a {
+    text-decoration: none;
+    font-size: 16px;
+}
 
 
 ul {
@@ -120,9 +122,9 @@ li {
     padding-top: 5px;
 }
 
-    li a {
-        color: blue;
-    }
+li a {
+    color: blue;
+}
 
 .menuNav {
     display: none;
@@ -145,7 +147,6 @@ i {
     -webkit-transform: rotate(45deg);
 }
 
-
 a[id^="menu"] {
-    padding-top: : 30px;
+    padding-top: 30px;
 }
