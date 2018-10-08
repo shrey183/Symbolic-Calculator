@@ -112,7 +112,7 @@ $(document).ready(function () {
         if (expression.indexOf('abs') != -1) {
             expression = expression.replace('abs', 'Math.abs');
         }
-        console.log(expression)
+        
         return expression;
     };
 
