@@ -273,6 +273,26 @@
             var element = document.getElementById("output");
             element.appendChild(para);        
         }
+        
+        //isPrime: Returns true if n is prime
+        function isPrime(n) {
+            if (n < 1) return false;
+            if (n === 2) return true;
+            if (n === 3) return false;
+            if (n % 2 == 0) return false;
+            if (n % 3 == 0) return false;
+
+            var i = 5
+                w = 2;
+
+            while (i * i <= n) {
+                if (n % i == 0) return false;
+                i += w;
+                w = 6 - w;
+          }
+
+            return true;
+        };
 
         // Menu
         $("a[id^='menu']").click(function(){
