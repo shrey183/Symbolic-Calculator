@@ -137,7 +137,6 @@ $(document).ready(function () {
     * @return {string}
     */
     function convertfromLatex(latex_string) {
-        console.log(latex_string)
         // Latex Dictionary 
         // Nautral log and log base 10 are treated the same. So for instance enter log(x)/log(2) to plot log_2(x).
         var dict = {
