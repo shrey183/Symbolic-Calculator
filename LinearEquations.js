@@ -187,6 +187,28 @@ function backSubsitution(mat) {
     return sol
 }
 
+function get_coefficients(system) {
+    var coefficients = [];
+    system.forEach(function(line) {
+        var temp = [];
+        for(var i = 0; i < line.length -1; i++){
+            temp.push(line[i]);
+        }
+        coefficients.push(temp);
+    });
+
+    return coefficients;
+}
+
+function get_solutions(system) {
+    var solutions = [];
+    system.forEach(function(line){
+        solutions.push(line[line.length - 1]);
+    });
+
+    return solutions;
+}
+
 /**
 * Solve the system of equations and append to the DOM
 */
@@ -199,36 +221,20 @@ function solve_matrix() {
     var r = parseInt(document.querySelector("#rows").value);
     // Get the coefficient and answer matrix
     var system = get_entries();
+    var sys_coefficients = get_coefficients(system);
+    var sys_solutions = get_solutions(system);
     try {
 
-        var answ = forwardElimination(system);
-        if (answ != -1) {
-            // Then this means that the matrix is singular. 
-            throw "given system is singular."
-        }
-        else {
-            // The matrix is not singular and therefore has a solution 
-            var sol = backSubsitution(system);
-            // Creating an array that contains the answer in the form (x,y,...) instead of [x,y,...].
-            var answer_string_array = ["("];
-            for (var i = 1; i <= r; i++) {
-                var item = sol[i - 1];
-                if (i != r) {
-                    answer_string_array.push(String(item) + ", ");
-                }
-                else {
-                    answer_string_array.push(String(item) + ").");
-                }
-            }
-            var ans_text = "The answer is " + answer_string_array.join("");
-            // A new div is created which will contain the answer.
-            var div_ans = document.createElement("div");
-            div_ans.setAttribute("id", "answer");
-            var text = document.createTextNode(ans_text + " Note that there might some imprecisions due to rounding off errors.");
-            div_ans.appendChild(text);
-            // Recall that container refers to the div with id cont.
-            container.appendChild(div_ans);
-        }
+        var answer_string_array = math.usolve(sys_coefficients, sys_solutions);
+
+        var ans_text = "The answer is (" + answer_string_array.join(",") + ")";
+        // A new div is created which will contain the answer.
+        var div_ans = document.createElement("div");
+        div_ans.setAttribute("id", "answer");
+        var text = document.createTextNode(ans_text + " Note that there might some imprecisions due to rounding off errors.");
+        div_ans.appendChild(text);
+        // Recall that container refers to the div with id cont.
+        container.appendChild(div_ans);
     }
     catch (err) {
         var div_ans = document.createElement("div");
