@@ -91,7 +91,7 @@ function make_matrix() {
 
 /**
 * Read the system of equations into an array of arrays of coefficients
-* @return {Array.<Array<Number>>}
+* @return {Array.<Array.<Number>>}
 */
 function get_entries() {
     // If we have a system of the form Ax=b then this method will return the matrix A (coefficient matrix) and the vector b (answer matrix).
@@ -110,7 +110,7 @@ function get_entries() {
         for (var i = 0; i < r; i++) {
             coeff[i] = [];
             system[i] = [];
-;                for (var j = 0; j <= r; j++) {
+                for (var j = 0; j <= r; j++) {
                 id = String(i) + String(j);
                 nodeValue = document.getElementById(`${id}`).value;
                 system[i].push(parseInt(nodeValue));
@@ -121,72 +121,10 @@ function get_entries() {
 }
 
 /**
-* Perform forward elimination on the system
-* @param {Array.<Array<Number>>} system - The system of equations
-* @return {Number}
+* Get the coefficient matrix from the system matrix
+* @param {Array.<Array.<Number>>} system - full system matrix
+* @return {Array.<Array.<Number>>}
 */
-function forwardElimination(system) {
-    var mat = system 
-    var r = parseInt(document.querySelector("#rows").value);
-    for (var k = 0; k < r; k++) {
-        // First we want the pivot with the maximum value
-        var pivot_index = k;
-        var pivot_value = mat[pivot_index][k]
-        for (var i = k + 1; i < r; i++) {
-            if (Math.abs(mat[i][k]) > pivot_value){
-                pivot_index = i;
-                pivot_value = mat[i][k];
-            }
-        }
-
-        // Next we want to check  if the matrix is singular or not.
-        if (!mat[k][pivot_index]) {
-            return k;
-        }
-
-        if (pivot_index != k) {
-            // Swap rows 
-            for (var i = 0; i <= r; i++) {
-                var temp = mat[k][i];
-                mat[k][i] = mat[pivot_index][i];
-                mat[pivot_index][i] = temp;
-            }
-            
-        }
-        for (var i = k + 1; i < r; i++) {
-            var scale = mat[i][k] / mat[k][k];
-            for (var j = k + 1; j <= r; j++) {
-                mat[i][j] -= mat[k][j] * scale;
-            }
-            mat[i][k] = 0;
-        }
-
-    }
-    
-    return -1;
-}
-
-/**
-* Perform back substitution on the matrix
-* @param {Array.<Array.<Number>>} mat - the matrix
-* @return {Array.<Number>}
-*/
-function backSubsitution(mat) {
-    var r = parseInt(document.querySelector("#rows").value);
-    var sol = new Array(r);
-    // Here we have to build the solution from the last equation, all the way up to the first equation
-    for (var i = r - 1; i >= 0; i--) {
-        sol[i] = mat[i][r]
-
-        for (var j = i + 1; j < r; j++) {
-            sol[i] -= mat[i][j] * sol[j];
-        }
-        sol[i] /= mat[i][i];
-
-    }
-    return sol
-}
-
 function get_coefficients(system) {
     var coefficients = [];
     system.forEach(function(line) {
@@ -200,6 +138,11 @@ function get_coefficients(system) {
     return coefficients;
 }
 
+/**
+* Get the solutions from the system matrix
+* @param {Array.<Array.<Number>>} system - full system matrix
+* @return {<Array.<Number>>}
+*/
 function get_solutions(system) {
     var solutions = [];
     system.forEach(function(line){
