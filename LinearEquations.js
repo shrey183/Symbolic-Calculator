@@ -91,7 +91,7 @@ function make_matrix() {
 
 /**
 * Read the system of equations into an array of arrays of coefficients
-* @return {Array.<Array<Number>>}
+* @return {Array.<Array.<Number>>}
 */
 function get_entries() {
     // If we have a system of the form Ax=b then this method will return the matrix A (coefficient matrix) and the vector b (answer matrix).
@@ -110,7 +110,7 @@ function get_entries() {
         for (var i = 0; i < r; i++) {
             coeff[i] = [];
             system[i] = [];
-;                for (var j = 0; j <= r; j++) {
+                for (var j = 0; j <= r; j++) {
                 id = String(i) + String(j);
                 nodeValue = document.getElementById(`${id}`).value;
                 system[i].push(parseInt(nodeValue));
@@ -121,70 +121,35 @@ function get_entries() {
 }
 
 /**
-* Perform forward elimination on the system
-* @param {Array.<Array<Number>>} system - The system of equations
-* @return {Number}
+* Get the coefficient matrix from the system matrix
+* @param {Array.<Array.<Number>>} system - full system matrix
+* @return {Array.<Array.<Number>>}
 */
-function forwardElimination(system) {
-    var mat = system 
-    var r = parseInt(document.querySelector("#rows").value);
-    for (var k = 0; k < r; k++) {
-        // First we want the pivot with the maximum value
-        var pivot_index = k;
-        var pivot_value = mat[pivot_index][k]
-        for (var i = k + 1; i < r; i++) {
-            if (Math.abs(mat[i][k]) > pivot_value){
-                pivot_index = i;
-                pivot_value = mat[i][k];
-            }
+function get_coefficients(system) {
+    var coefficients = [];
+    system.forEach(function(line) {
+        var temp = [];
+        for(var i = 0; i < line.length -1; i++){
+            temp.push(line[i]);
         }
+        coefficients.push(temp);
+    });
 
-        // Next we want to check  if the matrix is singular or not.
-        if (!mat[k][pivot_index]) {
-            return k;
-        }
-
-        if (pivot_index != k) {
-            // Swap rows 
-            for (var i = 0; i <= r; i++) {
-                var temp = mat[k][i];
-                mat[k][i] = mat[pivot_index][i];
-                mat[pivot_index][i] = temp;
-            }
-            
-        }
-        for (var i = k + 1; i < r; i++) {
-            var scale = mat[i][k] / mat[k][k];
-            for (var j = k + 1; j <= r; j++) {
-                mat[i][j] -= mat[k][j] * scale;
-            }
-            mat[i][k] = 0;
-        }
-
-    }
-    
-    return -1;
+    return coefficients;
 }
 
 /**
-* Perform back substitution on the matrix
-* @param {Array.<Array.<Number>>} mat - the matrix
-* @return {Array.<Number>}
+* Get the solutions from the system matrix
+* @param {Array.<Array.<Number>>} system - full system matrix
+* @return {<Array.<Number>>}
 */
-function backSubsitution(mat) {
-    var r = parseInt(document.querySelector("#rows").value);
-    var sol = new Array(r);
-    // Here we have to build the solution from the last equation, all the way up to the first equation
-    for (var i = r - 1; i >= 0; i--) {
-        sol[i] = mat[i][r]
+function get_solutions(system) {
+    var solutions = [];
+    system.forEach(function(line){
+        solutions.push(line[line.length - 1]);
+    });
 
-        for (var j = i + 1; j < r; j++) {
-            sol[i] -= mat[i][j] * sol[j];
-        }
-        sol[i] /= mat[i][i];
-
-    }
-    return sol
+    return solutions;
 }
 
 /**
@@ -199,36 +164,20 @@ function solve_matrix() {
     var r = parseInt(document.querySelector("#rows").value);
     // Get the coefficient and answer matrix
     var system = get_entries();
+    var sys_coefficients = get_coefficients(system);
+    var sys_solutions = get_solutions(system);
     try {
 
-        var answ = forwardElimination(system);
-        if (answ != -1) {
-            // Then this means that the matrix is singular. 
-            throw "given system is singular."
-        }
-        else {
-            // The matrix is not singular and therefore has a solution 
-            var sol = backSubsitution(system);
-            // Creating an array that contains the answer in the form (x,y,...) instead of [x,y,...].
-            var answer_string_array = ["("];
-            for (var i = 1; i <= r; i++) {
-                var item = sol[i - 1];
-                if (i != r) {
-                    answer_string_array.push(String(item) + ", ");
-                }
-                else {
-                    answer_string_array.push(String(item) + ").");
-                }
-            }
-            var ans_text = "The answer is " + answer_string_array.join("");
-            // A new div is created which will contain the answer.
-            var div_ans = document.createElement("div");
-            div_ans.setAttribute("id", "answer");
-            var text = document.createTextNode(ans_text + " Note that there might some imprecisions due to rounding off errors.");
-            div_ans.appendChild(text);
-            // Recall that container refers to the div with id cont.
-            container.appendChild(div_ans);
-        }
+        var answer_string_array = math.usolve(sys_coefficients, sys_solutions);
+
+        var ans_text = "The answer is (" + answer_string_array.join(",") + ")";
+        // A new div is created which will contain the answer.
+        var div_ans = document.createElement("div");
+        div_ans.setAttribute("id", "answer");
+        var text = document.createTextNode(ans_text + " Note that there might some imprecisions due to rounding off errors.");
+        div_ans.appendChild(text);
+        // Recall that container refers to the div with id cont.
+        container.appendChild(div_ans);
     }
     catch (err) {
         var div_ans = document.createElement("div");
