@@ -49,7 +49,8 @@ input:focus {
 }
 
 /*output*/
-#output {
+
+.output-wrapper{
     width: 300px;
     height: 300px;
     background-color: rgb(18,18,18);
@@ -59,6 +60,18 @@ input:focus {
     position: relative;
     margin-top: 100px;
     margin-left: 395px;
+    overflow: hidden;
+    padding-top:0;
+}
+
+#output {
+    overflow: auto;
+    position: absolute;
+    top: 0;
+    /* bottom: 0; */
+    left: 0;
+    right: 0;
+    padding: 1rem;  
 }
 
 #output1 {
@@ -67,7 +80,8 @@ input:focus {
     margin-top: 100px;
 }
 
-#rendered_input {
+
+.render-input-wrapper {
     width: 300px;
     height: 300px;
     background-color: rgb(18,18,18);
@@ -77,6 +91,20 @@ input:focus {
     position: relative;
     margin-top: 100px;
     float: left;
+    overflow: hidden;
+    position: relative;
+    /* background: red; */
+}
+
+#rendered_input {
+
+    overflow: auto;
+    position: absolute;
+    top: 0;
+    /* bottom: 0; */
+    left: 0;
+    right: 0;
+    padding: 1rem;
 }
 
 header, footer {
@@ -148,5 +176,14 @@ i {
 }
 
 a[id^="menu"] {
-    padding-top: 30px;
+    padding: 10px;
+    cursor: pointer;
+    margin:10px 10px 10px 0px;
+    transition: 0.7s;
+}
+a[id^="menu"]:hover{
+    padding: 10px;
+    cursor: pointer;
+    margin:10px 10px 10px 0px;
+    background-color: rgb(32, 32, 32);
 }
